@@ -37,10 +37,13 @@ jobs:
       - name: Install dependencies
         run: npm ci
 
+      - name: Install PostgreSQL client
+        run: sudo apt-get update && sudo apt-get install -y postgresql-client
+
       - name: Wait for Postgres to be ready
         run: |
-          for i in {1..10}; do
-            pg_isready -h localhost -p 5432 && exit 0
+          for i in {1..20}; do
+            pg_isready -h localhost -p 5433 && exit 0
             echo "Waiting for postgres..."
             sleep 3
           done
